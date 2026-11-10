@@ -1,18 +1,31 @@
-//
-//  LogButton.swift
-//  Learning-App
-//
-//  Created by Hadeel awaji on 28/05/1448 AH.
-//
-
 import SwiftUI
 
 struct LogButton: View {
+    let title: String
+    let isEnabled: Bool
+    let action: () -> Void
+
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        Button(action: action) {
+            Text(title)
+                .font(.body.bold())
+                .foregroundStyle(isEnabled ? Color.white : Color.secondary)
+                .frame(width: 272, height: 272)
+                .glassEffect(
+                    isEnabled ? .regular.tint(.brandOrange).interactive() : .regular,
+                    in: .circle
+                )
+        }
+        .buttonStyle(.plain)
+        .disabled(!isEnabled)
+        .animation(.smooth, value: isEnabled)
     }
 }
 
 #Preview {
-    LogButton()
+    VStack(spacing: 32) {
+        LogButton(title: "Log as Learned", isEnabled: true) { }
+        LogButton(title: "Logged as Learned", isEnabled: false) { }
+    }
+    .preferredColorScheme(.dark)
 }
