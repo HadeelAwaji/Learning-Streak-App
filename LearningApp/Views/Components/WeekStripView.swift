@@ -1,18 +1,37 @@
-//
-//  WeekStripView.swift
-//  Learning-App
-//
-//  Created by Hadeel awaji on 28/05/1448 AH.
-//
-
 import SwiftUI
 
 struct WeekStripView: View {
+    let days: [Date]
+    let today: Date
+    let status: (Date) -> DayStatus?
+
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        HStack(spacing: 0) {
+            ForEach(days, id: \.self) { day in
+                VStack(spacing: 4) {
+                    Text(day.weekdayLetter)
+                        .font(.caption)
+                        .fontWeight(.semibold)
+
+                    DayCircle(
+                        date: day,
+                        status: status(day),
+                        isToday: day.isSameDay(as: today)
+                    )
+                }
+                .frame(maxWidth: .infinity)
+            }
+        }
     }
 }
 
 #Preview {
-    WeekStripView()
+    let today = Date.now
+
+    WeekStripView(days: today.daysOfWeek, today: today) { day in
+        day < today.startOfDay ? .learned : nil
+    }
+    .padding(.horizontal, 14)
+    .preferredColorScheme(.dark)
+    .tint(.brandOrange)
 }
