@@ -27,7 +27,7 @@ struct ActivityView: View {
             .padding(.top, 8)
             .toolbar(.hidden, for: .navigationBar)
             .navigationDestination(isPresented: $showGoalEditor) {
-                LearningGoalView()
+                LearningGoalView(activityViewModel: viewModel)
             }
         }
         .onAppear { viewModel.refresh() }
