@@ -173,4 +173,21 @@ final class ActivityViewModel {
 
         return loggedDays >= totalDays
     }
+
+    // MARK: - Calendar
+
+    var calendarMonths: [Date] {
+        let startOfYear = Calendar.current.dateInterval(of: .year, for: today)?.start ?? today
+        let firstLog = logs.map(\.date).min() ?? startOfYear
+        let lastMonth = startOfYear.adding(months: 11)
+
+        var months: [Date] = []
+        var month = min(startOfYear, firstLog).startOfMonth
+
+        while month <= lastMonth {
+            months.append(month)
+            month = month.adding(months: 1)
+        }
+        return months
+    }
 }

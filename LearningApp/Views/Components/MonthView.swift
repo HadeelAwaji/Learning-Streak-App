@@ -1,18 +1,49 @@
-//
-//  MonthView.swift
-//  Learning-App
-//
-//  Created by Hadeel awaji on 28/05/1448 AH.
-//
-
 import SwiftUI
 
 struct MonthView: View {
+    let month: Date
+    let today: Date
+    let status: (Date) -> DayStatus?
+
+    private let columns = Array(repeating: GridItem(.flexible(), spacing: 0), count: 7)
+    private let weekdays = Calendar.current.shortWeekdaySymbols.map { $0.uppercased() }
+
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack(alignment: .leading, spacing: 4) {
+            Text(month.monthTitle)
+                .font(.headline)
+                .padding(.leading, 12)
+
+            LazyVGrid(columns: columns, spacing: 6) {
+                ForEach(weekdays, id: \.self) { weekday in
+                    Text(weekday)
+                        .font(.footnote.weight(.semibold))
+                        .foregroundStyle(.secondary)
+                }
+
+                ForEach(0..<month.leadingEmptyDays, id: \.self) { _ in
+                    Color.clear
+                        .frame(height: 44)
+                }
+
+                ForEach(month.daysInMonth, id: \.self) { day in
+                    DayCircle(
+                        date: day,
+                        status: status(day),
+                        isToday: day.isSameDay(as: today)
+                    )
+                }
+            }
+        }
     }
 }
 
 #Preview {
-    MonthView()
+    let today = Date.now
+
+    MonthView(month: today, today: today) { day in
+        day < today.startOfDay ? .learned : nil
+    }
+    .padding(.horizontal, 4)
+    .preferredColorScheme(.dark)
 }

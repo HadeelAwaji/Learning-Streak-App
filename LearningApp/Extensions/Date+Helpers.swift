@@ -1,10 +1,3 @@
-//
-//  Date+Helpers.swift
-//  Learning-App
-//
-//  Created by Hadeel awaji on 28/05/1448 AH.
-//
-
 import Foundation
 
 extension Date {
@@ -61,4 +54,28 @@ extension Date {
         formatter.dateFormat = "EEEE, d MMMM"
         return formatter
     }()
+
+    // MARK: - Calendar
+
+    var startOfMonth: Date {
+        Calendar.current.dateInterval(of: .month, for: self)?.start ?? self
+    }
+
+    func adding(months: Int) -> Date {
+        Calendar.current.date(byAdding: .month, value: months, to: self) ?? self
+    }
+
+    var daysInMonth: [Date] {
+        let start = startOfMonth
+        let count = Calendar.current.range(of: .day, in: .month, for: self)?.count ?? 0
+        return (0..<count).map { start.adding(days: $0) }
+    }
+
+    var leadingEmptyDays: Int {
+        Calendar.current.component(.weekday, from: startOfMonth) - 1
+    }
+
+    var monthTitle: String {
+        formatted(.dateTime.month(.wide).year())
+    }
 }
