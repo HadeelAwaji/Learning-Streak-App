@@ -34,5 +34,4 @@ struct DurationPicker: View {
     DurationPicker(selection: $duration)
         .padding()
         .preferredColorScheme(.dark)
-        .tint(.brandOrange)
 }

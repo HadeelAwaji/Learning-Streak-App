@@ -15,7 +15,6 @@ struct LearningApp: App {
             }
             .environment(activityViewModel)
             .preferredColorScheme(.dark)
-            .tint(.brandOrange)
         }
     }
 }

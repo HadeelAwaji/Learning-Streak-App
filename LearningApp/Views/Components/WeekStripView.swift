@@ -10,7 +10,7 @@ struct WeekStripView: View {
             ForEach(days, id: \.self) { day in
                 VStack(spacing: 4) {
                     Text(day.weekdayLetter)
-                        .font(.caption)
+                        .font(.footnote)
                         .fontWeight(.semibold)
 
                     DayCircle(
@@ -33,5 +33,4 @@ struct WeekStripView: View {
     }
     .padding(.horizontal, 14)
     .preferredColorScheme(.dark)
-    .tint(.brandOrange)
 }

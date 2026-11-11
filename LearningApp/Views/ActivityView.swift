@@ -141,5 +141,4 @@ struct ActivityView: View {
     return ActivityView()
         .environment(viewModel)
         .preferredColorScheme(.dark)
-        .tint(.brandOrange)
 }

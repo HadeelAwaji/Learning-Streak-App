@@ -79,5 +79,4 @@ struct OnboardingView: View {
     OnboardingView()
         .environment(ActivityViewModel())
         .preferredColorScheme(.dark)
-        .tint(.brandOrange)
 }

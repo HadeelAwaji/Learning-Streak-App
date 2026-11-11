@@ -40,10 +40,11 @@ struct LearningGoalView: View {
         }
         .alert("Update goal", isPresented: $viewModel.showUpdateAlert) {
             Button("Dismiss", role: .cancel) { }
-            Button("Update", role: .confirm) {
+            Button("Update") {
                 viewModel.saveGoal()
                 dismiss()
             }
+            .keyboardShortcut(.defaultAction)
         } message: {
             Text("If you update now, your streak will start over.")
         }
@@ -58,16 +59,7 @@ struct LearningGoalView: View {
         LearningGoalView(activityViewModel: activityViewModel)
     }
     .preferredColorScheme(.dark)
-    .tint(.brandOrange)
 }
 
-#Preview {
-    let activityViewModel = ActivityViewModel()
-    activityViewModel.startGoal(subject: "Swift", duration: .week)
 
-    return NavigationStack {
-        LearningGoalView(activityViewModel: activityViewModel)
-    }
-    .preferredColorScheme(.dark)
-    .tint(.brandOrange)
-}
+

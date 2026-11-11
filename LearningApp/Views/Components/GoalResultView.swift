@@ -47,5 +47,4 @@ struct GoalResultView: View {
     }
     .padding()
     .preferredColorScheme(.dark)
-    .tint(.brandOrange)
 }
