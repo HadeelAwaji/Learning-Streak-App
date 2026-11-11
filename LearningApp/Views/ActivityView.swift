@@ -34,6 +34,9 @@ struct ActivityView: View {
         .onChange(of: scenePhase) { _, newPhase in
             if newPhase == .active { viewModel.refresh() }
         }
+        .onReceive(NotificationCenter.default.publisher(for: UIApplication.significantTimeChangeNotification)) { _ in
+                    viewModel.refresh()
+                }
     }
 
     // MARK: - Header
