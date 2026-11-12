@@ -13,7 +13,6 @@ struct LearningGoalView: View {
             Text("I want to learn")
 
             TextField("Swift", text: $viewModel.subject)
-                .submitLabel(.done)
 
             Divider()
 

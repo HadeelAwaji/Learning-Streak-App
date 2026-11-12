@@ -14,6 +14,7 @@ struct OnboardingView: View {
             startSection
         }
         .padding(.horizontal, 18)
+        .ignoresSafeArea(.keyboard, edges: .bottom)
     }
 
     // MARK: - Header
@@ -44,7 +45,6 @@ struct OnboardingView: View {
                 .padding(.top, 40)
 
             TextField("Swift", text: $subject)
-                .submitLabel(.done)
 
             Divider()
 
