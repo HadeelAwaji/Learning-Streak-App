@@ -35,8 +35,8 @@ struct ActivityView: View {
             if newPhase == .active { viewModel.refresh() }
         }
         .onReceive(NotificationCenter.default.publisher(for: UIApplication.significantTimeChangeNotification)) { _ in
-                    viewModel.refresh()
-                }
+            viewModel.refresh()
+        }
     }
 
     // MARK: - Header
@@ -137,11 +137,20 @@ struct ActivityView: View {
     }
 }
 
-#Preview {
-    let viewModel = ActivityViewModel()
-    viewModel.startGoal(subject: "Swift", duration: .week)
+#Preview("In Progress") {
+    ActivityView()
+        .environment(ActivityViewModel.preview(.inProgress))
+        .preferredColorScheme(.dark)
+}
 
-    return ActivityView()
-        .environment(viewModel)
+#Preview("Completed") {
+    ActivityView()
+        .environment(ActivityViewModel.preview(.completed))
+        .preferredColorScheme(.dark)
+}
+
+#Preview("Not Met") {
+    ActivityView()
+        .environment(ActivityViewModel.preview(.notMet))
         .preferredColorScheme(.dark)
 }

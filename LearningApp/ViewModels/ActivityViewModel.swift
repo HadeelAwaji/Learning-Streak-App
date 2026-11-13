@@ -1,10 +1,3 @@
-//
-//  ActivityViewModel.swift
-//  Learning-App
-//
-//  Created by Hadeel awaji on 28/05/1448 AH.
-//
-
 import Foundation
 import Observation
 
@@ -191,3 +184,30 @@ final class ActivityViewModel {
         return months
     }
 }
+
+// MARK: - Preview Data
+
+#if DEBUG
+extension ActivityViewModel {
+    static func preview(_ state: GoalState) -> ActivityViewModel {
+        let viewModel = ActivityViewModel()
+
+        guard state != .inProgress else {
+            viewModel.goal = LearningGoal(subject: "Swift", duration: .week)
+            return viewModel
+        }
+
+        let start = Date.now.startOfDay.adding(days: -7)
+        viewModel.goal = LearningGoal(subject: "Swift", duration: .week, startDate: start)
+        viewModel.streakStartDate = start
+
+        for offset in 0..<7 {
+            if state == .notMet && offset == 2 { continue }
+            let status: DayStatus = (offset == 3 || offset == 4) ? .frozen : .learned
+            viewModel.logs.append(DayLog(date: start.adding(days: offset), status: status))
+        }
+
+        return viewModel
+    }
+}
+#endif
